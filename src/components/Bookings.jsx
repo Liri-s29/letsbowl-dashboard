@@ -4,13 +4,12 @@ import { db, getAllBookingsF, removeBookingF } from "../services/firebase.firest
 import { Box, Button, typographyClasses } from "@mui/material";
 import { collection, doc, onSnapshot, query } from "firebase/firestore";
 import moment from "moment";
-import PropTypes from 'prop-types';
 
 const columns = [
 	{ field: "name", headerName: "Name", width: 200 },
 	{ field: "email", headerName: "Email", width: 300 },
 	{ field: "phone", headerName: "Phone", width: 150 },
-	{ field: "date", headerName: "Date", width: 130, type: "date" },
+	{ field: "date", headerName: "Date (MM/DD/YYYY)", width: 200},
 	{ field: "category", headerName: "Category", width: 150 },
 	{ field: "time", headerName: "Entry Time", width: 160 },
 	{ field: "count", headerName: "Head Count", width: 130 },
@@ -35,7 +34,7 @@ const Bookings = (props) => {
 						email: doc.data().email,
 						name: doc.data().name,
 						phone: doc.data().phone,
-						date: moment(doc.data().date, "YYYY-MM-DD").format("DD/MM/YYYY"),
+						date: moment(doc.data().date, "YYYY-MM-DD").format("MM/DD/YYYY"),
 						time: moment(doc.data().time, "hh:mm").format("LT"),
 						count: doc.data().count,
 						bookingTime: doc.data().bookingTime,
@@ -76,7 +75,7 @@ const Bookings = (props) => {
 					rowsPerPageOptions={[10, 20, 50, 100]}
 					initialState={{
 						sorting: {
-						  sortModel: [{ field: 'date', sort: 'asc' }],
+						  sortModel: [{ field: 'date', sort: 'desc' }],
 						},
 					  }}
 				/>
